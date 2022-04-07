@@ -36,14 +36,16 @@
 *.x86_64
 *.hex
 
-# Custom executables
+# Custom files
 tail
+test_*
 
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+.vscode
 
 # Kernel Module Compile Results
 *.mod*
