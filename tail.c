@@ -27,7 +27,7 @@ void print_lines(char ** lines, unsigned long size);
 
 typedef unsigned long ulong;
 
-//TODO allocation and fopen tests
+//TODO correct free before exit
 
 //------------MAIN FUNCTION----------
 int main(int argc, char ** argv)
