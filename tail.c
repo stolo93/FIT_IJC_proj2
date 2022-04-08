@@ -20,7 +20,7 @@
 //function prototypes
 
 void set_option(int argc, char ** argv, unsigned long * req_lines, int * next_arg);
-void push_back(char * buffer, char ** storage, unsigned long size);
+void push_back(char * buffer,int buf_size, char ** storage, unsigned long size);
 void print_lines(char ** lines, unsigned long size);
 
 typedef unsigned long ulong;
@@ -63,7 +63,7 @@ int main(int argc, char ** argv)
             while ((c = getc(fin)) != '\n')
             ;
         }
-        push_back(buffer, last_lines, req_lines);
+        push_back(buffer, MAX_CHARS, last_lines, req_lines);
     }
 
     print_lines(last_lines, req_lines);
@@ -85,17 +85,17 @@ int main(int argc, char ** argv)
  * @param storage 
  * @param size 
  */
-void push_back(char * buffer, char ** storage, unsigned long size)
+void push_back(char * buffer,int buf_size, char ** storage, unsigned long size)
 {
-    char tmp[MAX_CHARS];
-    char tmp_buf[MAX_CHARS];
-    memcpy(tmp_buf, buffer, MAX_CHARS);
+    char tmp[buf_size];
+    char tmp_buf[buf_size];
+    memcpy(tmp_buf, buffer, buf_size);
 
     for (int i = size - 1; i >= 0; i--)
     {
-        memcpy(tmp, storage[i], MAX_CHARS);
-        memcpy(storage[i], tmp_buf, MAX_CHARS);
-        memcpy(tmp_buf, tmp, MAX_CHARS);
+        memcpy(tmp, storage[i], buf_size);
+        memcpy(storage[i], tmp_buf, buf_size);
+        memcpy(tmp_buf, tmp, buf_size);
     }
 
     return;
