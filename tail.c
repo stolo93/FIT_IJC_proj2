@@ -17,6 +17,8 @@
 
 #define MAX_CHARS 4096 //size of the line (counting newline and zero byte at the end)
 
+#define er_print(msg) fprintf(stderr, msg)
+
 //function prototypes
 
 void set_option(int argc, char ** argv, unsigned long * req_lines, int * next_arg);
@@ -41,13 +43,26 @@ int main(int argc, char ** argv)
     }
     else {
         fin = fopen(argv[file_ind], "r");
+        if (fin == NULL){
+            er_print("File was not opened succesfully.\n");
+            exit(EXIT_FAILURE);
+        }
     }
     
     //prepare storage for lines
     char ** last_lines = malloc(sizeof(char *) * req_lines);
+    if (last_lines == NULL){
+        er_print("Malloc failed.\n");
+        exit(EXIT_FAILURE);
+    }
+
     for (ulong i = 0; i < req_lines; i++)
     {
         last_lines[i] = calloc(MAX_CHARS, sizeof(char));
+        if (last_lines[i] == NULL){
+            er_print("Malloc failed.\n");
+            exit(EXIT_FAILURE);
+        }
     }
 
     //read and store lines
@@ -118,9 +133,6 @@ void print_lines(char ** lines, unsigned long size)
     return;
 }
 
-
-
-
 /**
  * @brief set the command line option of requested lines, if no special option was given
  * the unsigned long pointed to by req_lines is set to default value, which is 10
@@ -142,16 +154,16 @@ void set_option(int argc, char ** argv, unsigned long * req_lines, int * next_ar
     case 'n':
         if (optind > argc - 1)
         {
-            //TODO error msg - optarg not given
+            er_print("Option argument not given.\n");
             exit(EXIT_FAILURE);
         }
 
         *req_lines = strtoul(argv[optind], &wrong_opt, 10);
         *next_arg = optind + 1;
 
-        if (*req_lines == 0 && wrong_opt == argv[optind])
+        if (*wrong_opt != '\0')
         {  
-            //TODO error msg missing optarg
+            er_print("Option argument must be a positive integer number.\n");
             exit(EXIT_FAILURE);
         }
         break;
@@ -163,6 +175,7 @@ void set_option(int argc, char ** argv, unsigned long * req_lines, int * next_ar
 
     case '?':
         //TODO error msg invalid option
+        er_print("Invalid option given.\n");
         exit(EXIT_FAILURE);
         break;
     }
