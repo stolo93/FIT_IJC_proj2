@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_CHARS 10
+#define MAX_CHARS 4096 //size of the line (counting newline and zero byte at the end)
 
 //function prototypes
 
@@ -54,6 +54,15 @@ int main(int argc, char ** argv)
     char buffer[MAX_CHARS] = {0};
     while (fgets(buffer, MAX_CHARS - 1, fin) != NULL)
     {
+        //if the whole line doesn't fit into the buffer, add newline at the end of the buffer and read
+        // all characters until end of line is read (to ignore it)
+        if (strchr(buffer, '\n') == NULL)
+        {
+            buffer[MAX_CHARS - 2] = '\n';
+            int c;
+            while ((c = getc(fin)) != '\n')
+            ;
+        }
         push_back(buffer, last_lines, req_lines);
     }
 
