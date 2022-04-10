@@ -19,7 +19,11 @@ htab_t *htab_init(size_t n){
     
     new_tab -> size = 0;
     new_tab -> arr_size = n;
-    new_tab -> ptr = NULL;
+    new_tab -> ptr = malloc(sizeof(htab_pair_t) * n);
 
+    if (new_tab -> ptr == NULL){
+        free(new_tab);
+        return NULL;    
+    }
     return new_tab;
 }
