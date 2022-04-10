@@ -19,10 +19,10 @@ struct htab{
     htab_pair_t * ptr[];
 };
 
-struct htab_item{
+typedef struct htab_item{
     htab_pair pair;
     htab_pair * next;
-};
+}htab_item_t;
 
 /**
  * @brief hashing funtion used
