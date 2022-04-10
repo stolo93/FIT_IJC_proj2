@@ -2,7 +2,8 @@
  * @author Samuel Stolarik (xstola03)
  * @file _htab.h
  * @date 10-04-2022
- * @brief hash table structure and hashing function
+ * @brief private interface 
+ * hash table structures and hashing function
  *  
  */
 
@@ -15,8 +16,14 @@
 struct htab{
     int size;
     int arr_size;
-    htab_pair_t * ptr;
+    htab_pair_t * ptr[];
 };
+
+struct htab_item{
+    htab_pair pair;
+    htab_pair * next;
+};
+
 /**
  * @brief hashing funtion used
  * 
