@@ -27,7 +27,6 @@ void print_lines(char ** lines, unsigned long size);
 
 typedef unsigned long ulong;
 
-//TODO correct free before exit
 
 //------------MAIN FUNCTION----------
 int main(int argc, char ** argv)
@@ -45,7 +44,7 @@ int main(int argc, char ** argv)
         fin = fopen(argv[file_ind], "r");
         if (fin == NULL){
             er_print("File was not opened succesfully.\n");
-            exit(EXIT_FAILURE);
+            goto error_handling1;
         }
     }
     
@@ -53,15 +52,16 @@ int main(int argc, char ** argv)
     char ** last_lines = malloc(sizeof(char *) * req_lines);
     if (last_lines == NULL){
         er_print("Malloc failed.\n");
-        exit(EXIT_FAILURE);
+        goto error_handling2;
     }
 
-    for (ulong i = 0; i < req_lines; i++)
+    ulong allocated;
+    for (ulong allocated = 0; allocated < req_lines; allocated++)
     {
-        last_lines[i] = calloc(MAX_CHARS, sizeof(char));
-        if (last_lines[i] == NULL){
+        last_lines[allocated] = calloc(MAX_CHARS, sizeof(char));
+        if (last_lines[allocated] == NULL){
             er_print("Malloc failed.\n");
-            exit(EXIT_FAILURE);
+            goto error_handling3;
         }
     }
 
@@ -84,13 +84,27 @@ int main(int argc, char ** argv)
 
     print_lines(last_lines, req_lines);
 
-    //free everything
-    for (ulong i = 0; i < req_lines; i++){
+    for (ulong i = 0; i < allocated; i++){
         free(last_lines[i]);
     }
     free(last_lines);
+
     fclose(fin);
-    return 0;
+    return EXIT_SUCCESS;
+
+    //free everything in case of error
+    error_handling3:
+    //freeing only number of lines that was allocated in the first place
+    for (ulong i = 0; i < allocated; i++){
+        free(last_lines[i]);
+    }
+
+    error_handling2:
+    free(last_lines);
+
+    error_handling1:
+    fclose(fin);
+    return EXIT_FAILURE;
 }
 
 
@@ -175,7 +189,6 @@ void set_option(int argc, char ** argv, unsigned long * req_lines, int * next_ar
         break;
 
     case '?':
-        //TODO error msg invalid option
         er_print("Invalid option given.\n");
         exit(EXIT_FAILURE);
         break;
