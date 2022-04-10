@@ -9,6 +9,7 @@
  */
 
 #include "htab.h"
+#include "p_htab.h"
 
 htab_t *htab_init(size_t n){
     
