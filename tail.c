@@ -73,6 +73,7 @@ int main(int argc, char ** argv)
         // all characters until end of line is read (to ignore it)
         if (strchr(buffer, '\n') == NULL)
         {
+            fprintf(stderr, "Limit of %d characters per line exceeded.\n", MAX_CHARS - 1);
             buffer[MAX_CHARS - 2] = '\n';
             int c;
             while ((c = getc(fin)) != '\n')
