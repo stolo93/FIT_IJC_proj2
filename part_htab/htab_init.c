@@ -16,7 +16,7 @@ htab_t *htab_init(size_t n){
     if (n <= 0) 
         return NULL;
         
-    htab_t * new_tab = malloc(sizeof(htab_t) + n * sizeof(htab_item *));
+    htab_t * new_tab = malloc(sizeof(htab_t) + n * sizeof(htab_item_t *));
     if (new_tab == NULL)
         return NULL;
     

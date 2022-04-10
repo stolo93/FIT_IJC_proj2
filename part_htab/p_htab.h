@@ -20,8 +20,8 @@ struct htab{
 };
 
 typedef struct htab_item{
-    htab_pair pair;
-    htab_pair * next;
+    htab_pair_t pair;
+    htab_pair_t * next;
 }htab_item_t;
 
 /**
