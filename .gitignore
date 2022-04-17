@@ -39,6 +39,8 @@
 # Custom files
 tail
 test_*
+wordcount
+wordcount-dynamic
 
 # Debug files
 *.dSYM/
