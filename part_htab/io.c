@@ -61,7 +61,7 @@ int read_word(char *s, int max, FILE *f)
     if (read_chars == 0)
         return EOF;
     
-    s[max - 1] = '\0';
+    s[read_chars] = '\0';
 
     return read_chars;
 }
