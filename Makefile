@@ -10,7 +10,7 @@ tail:tail.o
 libhtab.a: $(OBJS) htab.h p_htab.htab
 	ar rsc $@ $^
 
-%.o: %.c 
+%.o: %.c
 	$(CC) $(CFLAGS) -c $^
 
 clean:
