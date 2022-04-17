@@ -23,9 +23,10 @@ htab_t *htab_init(size_t n){
     new_tab -> size = 0;
     new_tab -> arr_size = n;
 
-    if (new_tab -> ptr == NULL){
-        free(new_tab);
-        return NULL;    
+    for (int i = 0; i < n; i++)
+    {
+        new_tab -> ptr[i] = NULL;
     }
+    
     return new_tab;
 }
