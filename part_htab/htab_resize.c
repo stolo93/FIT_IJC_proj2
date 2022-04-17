@@ -11,21 +11,22 @@
 
 void htab_resize(htab_t *t, size_t newn)
 {
-    if (newn == t -> arr_size){
+    if (newn <= 0){
+        htab_free(t);
         return;
     }
 
-    if (newn == 0){
-        htab_free(t);
+    if ((size_t) newn == t -> arr_size){
         return;
     }
 
     //make a new table and insert all items
     htab_t * new;
     new = htab_init(newn);
-    if (new = NULL){
+    if (new == NULL){
         return;
     }
+    
     new -> arr_size = newn;
 
     htab_item_t * cur_item;
