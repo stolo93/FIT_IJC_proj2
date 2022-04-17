@@ -16,7 +16,6 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
     size_t index = htab_hash_function(key) % t -> arr_size;
     htab_item_t * cur = t -> ptr[index];
 
-    size_t count = 0;
     bool found = false;
     //walk the list
     while (cur != NULL)
@@ -27,7 +26,6 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
             cur -> pair.value += 1;
             break;
         }
-        count++;
         cur = cur -> next;
     }
 
@@ -35,17 +33,18 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
         return &cur -> pair;
     }
 
-   htab_item_t * new = insert_after(cur, key);
-   if (new == NULL){
+    htab_item_t * new = insert_after(cur, key);
+    if (new == NULL){
        return NULL;
-   }
+    }
 
-   count++;
-   if (count >= AVG_LEN_MAX){
-       htab_resize(t, t -> arr_size * 2);
-   }
-   
-   return &new -> pair;
+    t -> size += 1; //number of records in the htab
+    
+    if (t -> size / t -> arr_size > AVG_LEN_MAX){
+        htab_resize(t, t -> arr_size * 2);
+    }
+    
+    return &new -> pair;
 }
 
 htab_item_t * insert_after(htab_item_t * cur_item, htab_key_t key)
