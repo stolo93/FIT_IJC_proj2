@@ -12,10 +12,11 @@
 
 #include "htab.h"
 
-typedef struct htab_item{
+typedef struct htab_item htab_item_t;
+struct htab_item{
     htab_pair_t pair;
     htab_item_t * next;
-}htab_item_t;
+};
 
 struct htab{
     int size;
