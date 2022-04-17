@@ -9,11 +9,11 @@ all: tail wordcount wordcount-dynamic
 tail:tail.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-wordcount: libhtab.a wordcount.o
-	gcc -static libhtab.a wordcount.o -o $@
+wordcount: libhtab.a wordcount.o io.o
+	gcc -static $^ -o $@
 
-wordcount-dynamic: libhtab.so wordcount.o 
-	gcc libhtab.so wordcount.o -o $@
+wordcount-dynamic: libhtab.so wordcount.o io.o
+	gcc $^ -o $@
 
 libhtab.a: $(OBJS) 
 	ar rsc $@ $<
