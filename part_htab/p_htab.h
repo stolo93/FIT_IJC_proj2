@@ -14,7 +14,7 @@
 
 typedef struct htab_item{
     htab_pair_t pair;
-    htab_pair_t * next;
+    htab_item_t * next;
 }htab_item_t;
 
 struct htab{
