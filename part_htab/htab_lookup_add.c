@@ -11,6 +11,9 @@
 
 #include <stdbool.h>
 
+htab_item_t * insert_after(htab_item_t * cur_item, htab_key_t key);
+
+
 htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
 {
     size_t index = htab_hash_function(key) % t -> arr_size;
