@@ -16,7 +16,9 @@
 #define AVG_LEN_MAX 10
 #endif
 
-#define AVG_LEN_MIN 0
+#ifndef AVG_LEN_MAX
+#define AVG_LEN_MAX 2
+#endif
 
 typedef struct htab_item htab_item_t;
 struct htab_item{
