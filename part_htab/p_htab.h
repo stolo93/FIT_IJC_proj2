@@ -12,6 +12,10 @@
 
 #include "htab.h"
 
+typedef struct htab_item{
+    htab_pair_t pair;
+    htab_pair_t * next;
+}htab_item_t;
 
 struct htab{
     int size;
@@ -19,10 +23,6 @@ struct htab{
     htab_item_t * ptr[];
 };
 
-typedef struct htab_item{
-    htab_pair_t pair;
-    htab_pair_t * next;
-}htab_item_t;
 
 /**
  * @brief hashing funtion used
