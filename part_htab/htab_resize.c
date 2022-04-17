@@ -27,8 +27,10 @@ void htab_resize(htab_t *t, size_t newn)
         return;
     }
     
+    //set the new size of htab
     new -> arr_size = newn;
 
+    //place all the items to the correct indexes
     htab_item_t * cur_item;
     for (int i = 0; i < t -> arr_size; i++)
     {
@@ -41,7 +43,7 @@ void htab_resize(htab_t *t, size_t newn)
         }
     }
 
-    //start changing the original table
+    //change the original table
     htab_t * tmp;
     tmp = realloc(t, sizeof(htab_t) + new->arr_size * sizeof(htab_item_t *));
     if (tmp == NULL){
@@ -51,6 +53,8 @@ void htab_resize(htab_t *t, size_t newn)
     t = tmp;
     
     memcpy(t, new, sizeof(htab_t) + new->arr_size * sizeof(htab_item_t *));
+
+    //free the tmp table
     htab_free(new);
     return;
 }
