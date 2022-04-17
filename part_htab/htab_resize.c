@@ -16,7 +16,7 @@ void htab_resize(htab_t *t, size_t newn)
         return;
     }
 
-    if ((size_t) newn == t -> arr_size){
+    if (newn == t -> arr_size){
         return;
     }
 
