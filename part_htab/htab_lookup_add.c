@@ -53,7 +53,7 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
 htab_item_t * insert_after(htab_item_t * cur_item, htab_key_t key)
 {
     if (key == NULL){
-        retrun NULL;
+        return NULL;
     }
 
     htab_item_t * new = malloc(sizeof(htab_item_t));
