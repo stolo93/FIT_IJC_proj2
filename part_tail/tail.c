@@ -56,7 +56,7 @@ int main(int argc, char ** argv)
     }
 
     ulong allocated;
-    for (ulong allocated = 0; allocated < req_lines; allocated++)
+    for (allocated = 0; allocated < req_lines; allocated++)
     {
         last_lines[allocated] = calloc(MAX_CHARS, sizeof(char));
         if (last_lines[allocated] == NULL){
