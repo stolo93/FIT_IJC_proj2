@@ -16,7 +16,7 @@
 struct htab{
     int size;
     int arr_size;
-    htab_item_t ptr[];
+    htab_item_t * ptr[];
 };
 
 typedef struct htab_item{
