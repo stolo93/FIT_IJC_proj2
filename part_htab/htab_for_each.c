@@ -16,7 +16,7 @@ void htab_for_each(const htab_t * t, void (*f)(htab_pair_t *data))
     }
 
     htab_item_t * cur;
-    for (size_t i = 0; i < t -> arr_size; i++)
+    for (int i = 0; i < t -> arr_size; i++)
     {
         cur = t -> ptr[i];
 

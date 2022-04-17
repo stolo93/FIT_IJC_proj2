@@ -16,7 +16,7 @@ void htab_clear(htab_t * t)
     }
 
     htab_item_t * cur_head; 
-    for (size_t i = 0; i < t -> arr_size; i++)
+    for (int i = 0; i < t -> arr_size; i++)
     {
         cur_head = t -> ptr[i];
         while (cur_head != NULL)
