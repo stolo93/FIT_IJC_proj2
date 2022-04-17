@@ -13,7 +13,7 @@
 
 htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
 {
-    size_t index = htab_hash_function(key);
+    size_t index = htab_hash_function(key) % t -> arr_size;
     htab_item_t * cur = t -> ptr[index];
 
     size_t count = 0;
