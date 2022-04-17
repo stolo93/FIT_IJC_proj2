@@ -23,7 +23,7 @@ htab_t *htab_init(size_t n){
     new_tab -> size = 0;
     new_tab -> arr_size = n;
 
-    for (int i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++)
     {
         new_tab -> ptr[i] = NULL;
     }
