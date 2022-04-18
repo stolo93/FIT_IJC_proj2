@@ -35,7 +35,8 @@ int read_word(char *s, int max, FILE *f)
     if (max == 0){
         return 0;
     }
-
+    
+    static int err_count = 0;
     int c;
     int read_chars=0;
     while((c = getc(f)) != EOF)
@@ -51,7 +52,10 @@ int read_word(char *s, int max, FILE *f)
         else
         {
             if (read_chars >= max -1){
-                fprintf(stderr, "Word size limit reached.\n");
+                if (err_count == 0){ //print the error msg only once
+                    fprintf(stderr, "Word size limit reached.\n");
+                    err_count++;
+                }
                 break;
             }
             s[read_chars++] = c;
