@@ -24,9 +24,10 @@ bool htab_erase(htab_t * t, htab_key_t key)
         if (strcmp(key, cur -> pair.key) == 0){
 
             htab_item_t * tmp = cur -> next;
+            free(cur -> pair.key);
             free(cur);
 
-            if (prev == NULL){ //in case the deleted item wasn't the first item in the list
+            if (prev == NULL){ //in case the deleted item was the first item in the list
                 t -> ptr[index] = tmp;
             }
             else {
@@ -41,7 +42,12 @@ bool htab_erase(htab_t * t, htab_key_t key)
         cur = cur -> next;
     }
     
-    if (t -> size / t -> arr_size < AVG_LEN_MIN){
+    //in case the tab is empty now
+    if (t -> size == 0){
+        htab_resize(t, t -> arr_size / 2);
+    }
+
+    else if (t -> size / t -> arr_size < AVG_LEN_MIN){
         htab_resize(t, t -> arr_size / 2);
     }
 
