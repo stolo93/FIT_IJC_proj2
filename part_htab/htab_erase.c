@@ -24,7 +24,7 @@ bool htab_erase(htab_t * t, htab_key_t key)
         if (strcmp(key, cur -> pair.key) == 0){
 
             htab_item_t * tmp = cur -> next;
-            free(cur -> pair.key);
+            free((void *) cur -> pair.key);
             free(cur);
 
             if (prev == NULL){ //in case the deleted item was the first item in the list
