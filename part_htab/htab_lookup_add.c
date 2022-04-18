@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-htab_item_t * insert_first(htab_item_t * head, htab_key_t key);
+htab_item_t * insert_first(htab_item_t ** head, htab_key_t key);
 
 
 htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
@@ -37,7 +37,7 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
         return &cur -> pair;
     }
 
-    htab_item_t * new = insert_first(t -> ptr[index], key);
+    htab_item_t * new = insert_first(&t -> ptr[index], key);
     if (new == NULL){
        return NULL;
     }
@@ -51,7 +51,7 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
     return &new -> pair;
 }
 
-htab_item_t * insert_first(htab_item_t * head, htab_key_t key)
+htab_item_t * insert_first(htab_item_t ** head, htab_key_t key)
 {
     if (key == NULL){
         return NULL;
@@ -62,8 +62,8 @@ htab_item_t * insert_first(htab_item_t * head, htab_key_t key)
         return NULL;
     }
 
-    htab_item_t * tmp = head;
-    head = new;
+    htab_item_t * tmp = *head;
+    *head = new;
     new -> next = tmp;
 
     char * new_key = malloc(strlen(key));
