@@ -5,6 +5,7 @@ HEADERS = */htab.h */p_htab.h
 LOGIN = xstola03
 
 all: tail wordcount wordcount-dynamic
+	rm *.o
 
 tail:tail.o
 	$(CC) $(CFLAGS) $^ -o $@
