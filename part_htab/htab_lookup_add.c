@@ -66,13 +66,13 @@ htab_item_t * insert_first(htab_item_t ** head, htab_key_t key)
     *head = new;
     new -> next = tmp;
 
-    char * new_key = malloc(strlen(key));
+    char * new_key = malloc(strlen(key) + 1); //one byte for the terminating '\0'
     if (new_key == NULL){
         free(new);
         return NULL;
     }
     
-    memcpy(new_key, key, strlen(key));
+    memcpy(new_key, key, strlen(key) + 1); //same as above
     new -> pair.key = new_key;
     new -> pair.value = 1;
     
