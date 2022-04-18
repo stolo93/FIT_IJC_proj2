@@ -16,13 +16,19 @@ htab_t *htab_init(size_t n){
     if (n <= 0) 
         return NULL;
         
-    htab_t * new_tab = malloc(sizeof(htab_t) + n * sizeof(htab_item_t *));
+    htab_t * new_tab = malloc(sizeof(htab_t));
     if (new_tab == NULL)
         return NULL;
     
     new_tab -> size = 0;
     new_tab -> arr_size = n;
-
+    new_tab -> ptr = malloc(n * sizeof(htab_item_t *));
+    
+    if (new_tab -> ptr == NULL){
+        free(new_tab);
+        return NULL;
+    }
+    
     for (size_t i = 0; i < n; i++)
     {
         new_tab -> ptr[i] = NULL;

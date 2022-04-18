@@ -13,7 +13,7 @@
 #include "htab.h"
 
 #ifndef AVG_LEN_MAX
-#define AVG_LEN_MAX 10
+#define AVG_LEN_MAX 2
 #endif
 
 #ifndef AVG_LEN_MIN
@@ -29,7 +29,7 @@ struct htab_item{
 struct htab{
     int size;
     int arr_size;
-    htab_item_t * ptr[];
+    htab_item_t ** ptr;
 };
 
 
