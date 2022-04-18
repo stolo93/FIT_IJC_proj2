@@ -10,8 +10,9 @@
 #include "p_htab.h"
 
 #include <stdbool.h>
+#include <string.h>
 
-htab_item_t * insert_after(htab_item_t * cur_item, htab_key_t key);
+htab_item_t * insert_first(htab_item_t * head, htab_key_t key);
 
 
 htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
@@ -36,7 +37,7 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
         return &cur -> pair;
     }
 
-    htab_item_t * new = insert_after(cur, key);
+    htab_item_t * new = insert_first(t -> ptr[index], key);
     if (new == NULL){
        return NULL;
     }
@@ -50,7 +51,7 @@ htab_pair_t * htab_lookup_add(htab_t * t, htab_key_t key)
     return &new -> pair;
 }
 
-htab_item_t * insert_after(htab_item_t * cur_item, htab_key_t key)
+htab_item_t * insert_first(htab_item_t * head, htab_key_t key)
 {
     if (key == NULL){
         return NULL;
@@ -61,11 +62,20 @@ htab_item_t * insert_after(htab_item_t * cur_item, htab_key_t key)
         return NULL;
     }
 
-    new -> next = cur_item ->next;
-    new ->pair.key = key;
-    new ->pair.value = 1;
+    htab_item_t * tmp = head;
+    head = new;
+    new -> next = tmp;
 
-    cur_item -> next = new;
+    char * new_key = malloc(strlen(key));
+    if (new_key == NULL){
+        free(new);
+        return NULL;
+    }
+    
+    memcpy(new_key, key, strlen(key));
+    new -> pair.key = new_key;
+    new -> pair.value = 1;
+    
 
     return new;
 }
