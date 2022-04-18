@@ -13,6 +13,9 @@
 
 bool htab_erase(htab_t * t, htab_key_t key)
 {
+    if (t -> arr_size == 0){
+        return false;
+    }
     size_t index = htab_hash_function(key) % t -> arr_size;
     htab_item_t * cur = t -> ptr[index];
     htab_item_t * prev = NULL;
@@ -42,12 +45,7 @@ bool htab_erase(htab_t * t, htab_key_t key)
         cur = cur -> next;
     }
     
-    //in case the tab is empty now
-    if (t -> size == 0){
-        htab_resize(t, t -> arr_size / 2);
-    }
-
-    else if (t -> size / t -> arr_size < AVG_LEN_MIN){
+    if (t -> size == 0 || t -> size / t -> arr_size < AVG_LEN_MIN){
         htab_resize(t, t -> arr_size / 2);
     }
 
