@@ -11,50 +11,44 @@
 
 void htab_resize(htab_t *t, size_t newn)
 {
-    if (newn <= 0){
-        htab_free(t);
+    if (t == NULL){
         return;
     }
-
+    if (newn <= 0){
+        htab_free(t);
+    }
     if (newn == t -> arr_size){
         return;
     }
 
-    //make a new table and insert all items
-    htab_t * new;
-    new = htab_init(newn);
-    if (new == NULL){
+    htab_t * tmp = htab_init(newn);
+    if (tmp == NULL){
         return;
     }
-    
-    //set the new size of htab
-    new -> arr_size = newn;
 
-    //place all the items to the correct indexes
-    htab_item_t * cur_item;
-    for (int i = 0; i < t -> arr_size; i++)
-    {
-        cur_item = t -> ptr[i];
-        //walking the list
+    //transfer all items into the new table with diff size
+    for (int i = 0; i < t -> arr_size; i++){
+        htab_item_t * cur_item = t -> ptr[i];
+        
         while (cur_item != NULL)
         {
-            htab_lookup_add(new, cur_item -> pair.key);
+            htab_lookup_add(tmp, cur_item -> pair.key); //insert into the table once
+            htab_find(tmp, cur_item -> pair.key) -> value = cur_item -> pair.value; //set the right value
+
             cur_item = cur_item -> next;
         }
     }
 
-    //change the original table
-    htab_t * tmp;
-    tmp = realloc(t, sizeof(htab_t) + new->arr_size * sizeof(htab_item_t *));
-    if (tmp == NULL){
-        htab_free(new);
-        return;
-    }
-    t = tmp;
-    
-    memcpy(t, new, sizeof(htab_t) + new->arr_size * sizeof(htab_item_t *));
+    //free old htab keys and array_ptr
+    htab_clear(t);
+    free(t -> ptr);
 
-    //free the tmp table
-    htab_free(new);
+    //move new array_ptr into the old htab
+    t -> ptr = tmp -> ptr;
+    t -> arr_size = tmp -> arr_size;
+
+    //delete the temporary table
+    free(tmp); //not freeing tmp -> ptr because that had been assigned to the old htab   
+
     return;
 }
