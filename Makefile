@@ -13,13 +13,15 @@ wordcount: libhtab.a wordcount.o io.o
 	gcc -o $@ -static wordcount.o io.o -L. -lhtab
 
 wordcount-dynamic: libhtab.so wordcount.o io.o
-	gcc $^ -o $@
+	export LD_LIBRARY_PATH="."
+	gcc $^ -o $@ -L. -lhtab
 
 libhtab.a: $(OBJS) 
 	ar rsc $@ $^
 
-libhtab.so: $(OBJS)  #TODO -fPIC while making .o
-	gcc -shared -fPIC $< -o $@
+libhtab.so: CFLAGS+=-fPIC
+libhtab.so: $(OBJS)
+	gcc -shared -fPIC $^ -o $@
 
 %.o: */%.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $<
