@@ -12,6 +12,7 @@
 
 #include "htab.h"
 
+//TODO come up with better values
 #ifndef AVG_LEN_MAX
 #define AVG_LEN_MAX 2
 #endif
