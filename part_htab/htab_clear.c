@@ -15,15 +15,22 @@ void htab_clear(htab_t * t)
         return; //nothing to do 
     }
 
-    htab_item_t * cur_head; 
+    htab_item_t * cur;
+    htab_item_t * tmp;
+
     for (int i = 0; i < t -> arr_size; i++)
     {
-        cur_head = t -> ptr[i];
-        while (cur_head != NULL)
+        cur = t -> ptr[i];
+        
+        while (cur != NULL)
         {
-            htab_erase(t, cur_head ->pair.key); //delete current record (pair)
-            //always erasing the first item so the cur_head is always at t -> ptr[i]
+            tmp = cur -> next;
+            free((void *) cur -> pair.key);
+            free(cur);
+
+            cur = tmp;
         }
+        t -> ptr[i] = NULL;
     }
 
     t -> size = 0;
