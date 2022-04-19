@@ -29,13 +29,13 @@ int main(){
         htab_lookup_add(tab, word);
     }
     
-    htab_for_each(tab, (*print_pai));
+    htab_for_each(tab, (*print_pair));
 
     htab_free(tab);
     return 0;
 }
 
-void print_pai(htab_pair_t * data)
+void print_pair(htab_pair_t * data)
 {
     printf("%s \t %d\n", data -> key, data -> value);
     return;
