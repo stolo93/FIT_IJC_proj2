@@ -60,3 +60,6 @@ dkms.conf
 
 # Core dump
 *core*
+
+#zip files
+*.zip
