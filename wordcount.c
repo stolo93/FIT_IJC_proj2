@@ -11,17 +11,17 @@
 #include <stdio.h>
 
 #define MAX_LEN 4096
-#define SIZE_START 40
+#define SIZE_START 11519
+    //chose number 11519 because it is prime and I consider it suitably high
+    //prime numbers are better because: "every integer that shares a common factor with the length will be hashed into an index that is a multiple of this factor."
+    //from https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1
 
 extern int read_word(char *s, int max, FILE *f);
 void print_pair(htab_pair_t * data);
 
 int main(){
 
-    htab_t * tab = htab_init(11519);
-    //chose number 11519 because it is prime and I consider it suitably high
-    //prime numbers are better because: "every integer that shares a common factor with the length will be hashed into an index that is a multiple of this factor."
-    //from https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1
+    htab_t * tab = htab_init(SIZE_START);
     char word[MAX_LEN];
 
     while (read_word(word, MAX_LEN, stdin) != EOF)
