@@ -14,7 +14,7 @@
 #define SIZE_START 40
 
 extern int read_word(char *s, int max, FILE *f);
-void print_pai(htab_pair_t * data);
+void print_pair(htab_pair_t * data);
 
 int main(){
 
