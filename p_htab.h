@@ -12,13 +12,12 @@
 
 #include "htab.h"
 
-//TODO come up with better values
 #ifndef AVG_LEN_MAX
-#define AVG_LEN_MAX 2
+#define AVG_LEN_MAX 3
 #endif
 
 #ifndef AVG_LEN_MIN
-#define AVG_LEN_MIN 2
+#define AVG_LEN_MIN 1
 #endif
 
 typedef struct htab_item htab_item_t;

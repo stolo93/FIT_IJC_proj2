@@ -18,7 +18,10 @@ void print_pai(htab_pair_t * data);
 
 int main(){
 
-    htab_t * tab = htab_init(2);
+    htab_t * tab = htab_init(11519);
+    //chose number 11519 because it is prime and I consider it suitably high
+    //prime numbers are better because: "every integer that shares a common factor with the length will be hashed into an index that is a multiple of this factor."
+    //from https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1
     char word[MAX_LEN];
 
     while (read_word(word, MAX_LEN, stdin) != EOF)

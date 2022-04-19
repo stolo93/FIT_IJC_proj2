@@ -16,14 +16,14 @@ wordcount-dynamic: libhtab.so wordcount.o io.o
 	export LD_LIBRARY_PATH="."
 	gcc $^ -o $@ -L. -lhtab
 
-libhtab.a: $(OBJS) 
+libhtab.a: $(OBJS)
 	ar rsc $@ $^
 
 libhtab.so: CFLAGS+=-fPIC
 libhtab.so: $(OBJS)
 	gcc -shared -fPIC $^ -o $@
 
-%.o: */%.c $(HEADERS)
+%.o: */%.c $(wildcard *.h)
 	$(CC) $(CFLAGS) -c $<
 
 zip: *.c *.cc *.h Makefile
